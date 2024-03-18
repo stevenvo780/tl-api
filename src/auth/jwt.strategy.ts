@@ -12,6 +12,7 @@ import { User } from '../user/entities/user.entity';
 export interface JwtPayload {
   email: string;
   sub: number;
+  role: string;
 }
 
 @Injectable()
@@ -23,15 +24,15 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: JwtPayload): Promise<User> {
+  async validate(payload: JwtPayload): Promise<any> {
     const { email } = payload;
-    const user = await this.userService.findOneByEmail(email);
+    const user: User = await this.userService.findOneByEmail(email);
 
     if (!user) {
       throw new UnauthorizedException();
     }
 
-    return user;
+    return { ...user, role: payload.role };
   }
 }
 

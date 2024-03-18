@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Content } from '../../content/entities/content.entity';
 
 export enum roles {
   ADMIN = 'admin',
@@ -36,4 +37,10 @@ export class User {
     default: roles.STAFF,
   })
   role: roles;
+
+  @OneToMany(() => Content, (content) => content.author)
+  contents: Content[];
+
+  @Column({ default: true })
+  isActive: boolean;
 }

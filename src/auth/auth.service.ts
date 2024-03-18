@@ -29,7 +29,11 @@ export class AuthService {
   async login(user: LoginDto) {
     const validatedUser = await this.validateUser(user.email, user.password);
     if (validatedUser) {
-      const payload = { email: validatedUser.email, sub: validatedUser.id };
+      const payload = {
+        email: validatedUser.email,
+        sub: validatedUser.id,
+        role: validatedUser.role,
+      };
       const userData = await this.userService.findOneByEmail(
         validatedUser.email,
       );
