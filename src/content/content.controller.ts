@@ -22,13 +22,13 @@ import {
   ApiResponse,
 } from '@nestjs/swagger';
 
-@UseGuards(JwtAuthGuard)
-@ApiBearerAuth()
 @ApiTags('content')
 @Controller('content')
 export class ContentController {
   constructor(private readonly contentService: ContentService) {}
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Create a new content item' })
   @ApiCreatedResponse({
     description: 'The content item has been successfully created.',
@@ -47,8 +47,8 @@ export class ContentController {
     description: 'A list of all content items accessible by the user.',
   })
   @Get()
-  findAll(@Request() req: RequestWithUser) {
-    return this.contentService.findAll(req.user.id);
+  findAll() {
+    return this.contentService.findAll();
   }
 
   @ApiOperation({ summary: 'Get a content item by ID' })
@@ -61,6 +61,8 @@ export class ContentController {
     return this.contentService.findOne(+id, req.user.id);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Update a content item by ID' })
   @ApiResponse({
     status: 200,
@@ -71,6 +73,8 @@ export class ContentController {
     return this.contentService.update(+id, updateContentDto);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Delete a content item by ID' })
   @ApiResponse({
     status: 200,

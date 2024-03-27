@@ -3,6 +3,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
+import { ContentModule } from './content/content.module';
+import { EventModule } from './event/event.module';
+import { NewsModule } from './news/news.module';
 import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import AppProvider from './app.provider';
@@ -22,6 +25,9 @@ import AppProvider from './app.provider';
     }),
     AuthModule,
     UserModule,
+    ContentModule,
+    EventModule,
+    NewsModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppProvider],

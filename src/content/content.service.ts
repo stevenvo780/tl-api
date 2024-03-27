@@ -18,10 +18,8 @@ export class ContentService {
     return this.contentRepository.save(newContent);
   }
 
-  findAll(userId: number) {
-    return this.contentRepository.find({
-      where: { author: { id: userId } },
-    });
+  findAll() {
+    return this.contentRepository.find();
   }
 
   findOne(id: number, userId: number) {
